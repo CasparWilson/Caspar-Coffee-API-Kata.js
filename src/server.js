@@ -44,11 +44,7 @@ app.get("/customerLoyalty/:customerID", (req, res) => {
 });
 
 app.post("/customerLoyalty", (req, res) => {
-    const newCustomer = {
-        name: req.body,
-        customerID: nextCustomerID,
-        stamps: 0,
-    };
+    const newCustomer = req.body;
     if (!newCustomer) {
         console.error("No new customer name received in POST/");
         res.status(400).json({
@@ -56,6 +52,8 @@ app.post("/customerLoyalty", (req, res) => {
         });
         return;
     }
+    newCustomer.customerID = nextCustomerID;
+    newCustomer.stamps = 0;
     nextCustomerID++;
     console.log({ newCustomer });
     customersLoyalty.push(newCustomer);
