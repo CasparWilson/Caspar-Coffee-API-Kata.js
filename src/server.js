@@ -21,19 +21,21 @@ app.use(express.json());
 const PORT = process.env.PORT ?? 4000;
 
 const customersloyalty = [
-    { name: "Bukola", stamps: 2 },
-    { name: "Caspar", stamps: 2 },
-    { name: "Dana", stamps: 2 },
-    { name: "Olu", stamps: 2 },
-    { name: "Paul", stamps: 2 },
+    { name: "Bukola", customerID: 1, stamps: 2 },
+    { name: "Caspar", customerID: 2, stamps: 2 },
+    { name: "Dana", customerID: 3, stamps: 2 },
+    { name: "Olu", customerID: 4, stamps: 2 },
+    { name: "Paul", customerID: 5, stamps: 2 },
 ];
+
+let nextCustomerID = 6;
 
 app.get("/customerLoyalty", function (_req, res) {
     res.json(customersloyalty);
 });
 
 app.post("/customerLoyalty", (req, res) => {
-    const newCustomer = { name: req.body, stamps: 0 };
+    const newCustomer = { name: req.body, customerID: nextCustomerID, stamps: 0 };
     if (!newCustomer) {
         console.error("No new customer name received in POST/");
         res.status(400).json({
@@ -41,6 +43,7 @@ app.post("/customerLoyalty", (req, res) => {
         });
         return;
     }
+    nextCustomerID++;
     console.log({ newCustomer });
     customersloyalty.push(newCustomer);
 
