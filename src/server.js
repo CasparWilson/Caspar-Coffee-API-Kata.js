@@ -28,6 +28,8 @@ const customersloyalty = [
     { name: "Paul", customerID: 5, stamps: 2 },
 ];
 
+console.log("testing pull requests");
+
 let nextCustomerID = 6;
 
 app.get("/customerLoyalty", function (_req, res) {
@@ -35,7 +37,11 @@ app.get("/customerLoyalty", function (_req, res) {
 });
 
 app.post("/customerLoyalty", (req, res) => {
-    const newCustomer = { name: req.body, customerID: nextCustomerID, stamps: 0 };
+    const newCustomer = {
+        name: req.body,
+        customerID: nextCustomerID,
+        stamps: 0,
+    };
     if (!newCustomer) {
         console.error("No new customer name received in POST/");
         res.status(400).json({
